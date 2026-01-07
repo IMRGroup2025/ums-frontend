@@ -4,6 +4,7 @@ import { Link } from "react-router-dom"
 
 function Bills() {
   const [bills, setBills] = useState([])
+  const [isGenerating, setIsGenerating] = useState(false)
 
   const fetchBills = async () => {
     const res = await axios.get("http://localhost:5000/api/bills")
@@ -27,10 +28,43 @@ function Bills() {
     fetchBills()
   }
 
+  const autoGenerateBills = async () => {
+    if (isGenerating) return
+    const confirmed = window.confirm("Generate bills from the latest readings?")
+    if (!confirmed) return
+
+    setIsGenerating(true)
+    try {
+      const res = await axios.post("http://localhost:5000/api/bills/generate")
+      const message =
+        res.data?.message || res.data?.status || "Bills generated successfully."
+      window.alert(message)
+      fetchBills()
+    } catch (error) {
+      console.error(error)
+      const serverMessage =
+        error.response?.data?.message ||
+        error.response?.data?.error ||
+        (typeof error.response?.data === "string" ? error.response?.data : null) ||
+        "Failed to generate bills."
+      window.alert(serverMessage)
+    } finally {
+      setIsGenerating(false)
+    }
+  }
+
   return (
     <div className="page">
       <div className="page-header">
         <Link to="/" className="back-btn">← Back</Link>
+        <button
+          className="add-btn"
+          onClick={autoGenerateBills}
+          disabled={isGenerating}
+          style={isGenerating ? { opacity: 0.7, cursor: "not-allowed" } : undefined}
+        >
+          {isGenerating ? "Generating..." : "Auto-generate bills"}
+        </button>
       </div>
 
       <h2>Bills</h2>
