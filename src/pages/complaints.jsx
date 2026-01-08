@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react"
 import axios from "axios"
+import { Link } from "react-router-dom"
+import "./common.css"
 
 function Complaints() {
   const [complaints, setComplaints] = useState([])
@@ -33,7 +35,7 @@ function Complaints() {
   return (
     <div className="page">
       <div className="page-header">
-        <h2>Complaints</h2>
+        <Link to="/" className="back-btn">← Back</Link>
         <select value={filter} onChange={(e) => setFilter(e.target.value)}>
           <option value="All">All</option>
           <option value="Open">Open</option>
@@ -41,6 +43,8 @@ function Complaints() {
           <option value="Resolved">Resolved</option>
         </select>
       </div>
+
+      <h2>Complaints</h2>
 
       <div className="card full-width">
         <table>

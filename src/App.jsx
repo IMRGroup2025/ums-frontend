@@ -12,6 +12,7 @@ import Bills from "./pages/bills.jsx"
 import Payments from "./pages/payments.jsx"
 import Reports from "./pages/reports.jsx"
 import UtilityDashboard from "./pages/utilityDasboard.jsx"
+import Users from "./pages/users.jsx"
 import AppLayout from "./components/AppLayout.jsx"
 
 function App() {
@@ -31,6 +32,7 @@ function App() {
         <Route path="/payments" element={<Payments />} />
         <Route path="/reports" element={<Reports />} />
         <Route path="/utility/:utilityId" element={<UtilityDashboard />} />
+        <Route path="/users" element={<Users />} />
       </Route>
     </Routes>
   )

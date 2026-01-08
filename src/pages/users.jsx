@@ -3,83 +3,83 @@ import axios from "axios"
 import { Link } from "react-router-dom"
 import "./common.css"
 
-function Customers() {
-  const [customers, setCustomers] = useState([])
+function Users() {
+  const [users, setUsers] = useState([])
   const [showModal, setShowModal] = useState(false)
-  const [editingCustomer, setEditingCustomer] = useState(null)
+  const [editingUser, setEditingUser] = useState(null)
 
   const [form, setForm] = useState({
     name: "",
-    customer_type: "Household",
-    address: "",
+    user_type: "ADMINISTRATIVE STAFF",
     phone: "",
     email: "",
+    password: "",   
   })
 
   // FETCH
-  const fetchCustomers = async () => {
-    const res = await axios.get("http://localhost:5000/api/customers")
-    setCustomers(res.data)
+  const fetchUsers = async () => {
+    const res = await axios.get("http://localhost:5000/api/users")
+    setUsers(res.data)
   }
 
   useEffect(() => {
-    fetchCustomers()
+    fetchUsers()
   }, [])
 
   // ADD
-  const addCustomer = async () => {
-    await axios.post("http://localhost:5000/api/customers", form)
+  const addUser = async () => {
+    await axios.post("http://localhost:5000/api/users", form)
     closeModal()
-    fetchCustomers()
+    fetchUsers()
   }
 
   // UPDATE
-  const updateCustomer = async () => {
+  const updateUser = async () => {
     await axios.put(
-      `http://localhost:5000/api/customers/${editingCustomer.customer_id}`,
+      `http://localhost:5000/api/users/${editingUser.user_id}`,
       form
     )
     closeModal()
-    fetchCustomers()
+    fetchUsers()
   }
 
   // DELETE
-  const deleteCustomer = async (id) => {
-    if (!window.confirm("Delete this customer?")) return
-    await axios.delete(`http://localhost:5000/api/customers/${id}`)
-    fetchCustomers()
+  const deleteUser = async (id) => {
+    if (!window.confirm("Delete this user?")) return
+    await axios.delete(`http://localhost:5000/api/users/${id}`)
+    fetchUsers()
   }
 
   // OPEN ADD MODAL
   const openAddModal = () => {
-    setEditingCustomer(null)
+    setEditingUser(null)
     setForm({
       name: "",
-      customer_type: "Household",
-      address: "",
+      user_type: "ADMINISTRATIVE STAFF",
       phone: "",
       email: "",
+      password: "",
     })
     setShowModal(true)
   }
 
   // OPEN EDIT MODAL
-  const openEditModal = (customer) => {
-    setEditingCustomer(customer)
-    setForm(customer)
+  const openEditModal = (user) => {
+    setEditingUser(user)
+    setForm(user)
     setShowModal(true)
   }
 
   // CLOSE MODAL
   const closeModal = () => {
     setShowModal(false)
-    setEditingCustomer(null)
+    setEditingUser(null)
     setForm({
       name: "",
-      customer_type: "Household",
-      address: "",
+      user_type: "Admin Staff",
       phone: "",
       email: "",
+      password: "",
     })
   }
 
@@ -89,12 +89,11 @@ function Customers() {
       <div className="page-header">
         <Link to="/" className="back-btn">← Back</Link>
         <button className="add-btn" onClick={openAddModal}>
-          ➕ Add Customer
+          ➕ Add User
         </button>
       </div>
 
-      <h2>Customers</h2>
-
+      <h2>Users</h2>
       {/* TABLE */}
       <div className="card full-width">
         <table>
@@ -103,32 +102,32 @@ function Customers() {
               <th>ID</th>
               <th>Name</th>
               <th>Type</th>
-              <th>Address</th>
               <th>Phone</th>
               <th>Email</th>
+              <th>Password</th>
               <th>Actions</th>
             </tr>
           </thead>
 
           <tbody>
-            {customers.map((c) => (
-              <tr key={c.customer_id}>
-                <td>{c.customer_id}</td>
-                <td>{c.name}</td>
-                <td>{c.customer_type}</td>
-                <td>{c.address}</td>
-                <td>{c.phone}</td>
-                <td>{c.email}</td>
+            {users.map((u) => (
+              <tr key={u.user_id}>
+                <td>{u.user_id}</td>
+                <td>{u.name}</td>
+                <td>{u.user_type}</td>
+                <td>{u.phone}</td>
+                <td>{u.email}</td>
+                <td>{u.password}</td>
                 <td>
                   <button
                     className="edit-btn"
-                    onClick={() => openEditModal(c)}
+                    onClick={() => openEditModal(u)}
                   >
                     Edit
                   </button>
                   <button
                     className="delete-btn"
-                    onClick={() => deleteCustomer(c.customer_id)}
+                    onClick={() => deleteUser(u.user_id)}
                   >
                     Delete
                   </button>
@@ -143,7 +142,7 @@ function Customers() {
       {showModal && (
         <div className="modal-overlay">
           <div className="modal">
-            <h3>{editingCustomer ? "Edit Customer" : "Add Customer"}</h3>
+            <h3>{editingUser ? "Edit User" : "Add User"}</h3>
 
             <input
               placeholder="Name"
@@ -152,22 +151,18 @@ function Customers() {
             />
 
             <select
-              value={form.customer_type}
+              value={form.user_type}
               onChange={(e) =>
-                setForm({ ...form, customer_type: e.target.value })
+                setForm({ ...form, user_type: e.target.value })
               }
             >
-              <option value="Household">Household</option>
-              <option value="Business">Business</option>
-              <option value="Government">Government</option>
+              <option value="ADMINISTRATIVE STAFF">ADMINISTRATIVE STAFF</option>
+              <option value="FIELD OFFICERS">FIELD OFFICERS</option>
+              <option value="CASHIERS">CASHIERS</option>
+              <option value="MANAGERS">MANAGERS</option>
             </select>
 
-            <input
-              placeholder="Address"
-              value={form.address}
-              onChange={(e) => setForm({ ...form, address: e.target.value })}
-            />
-
+            
             <input
               placeholder="Phone"
               value={form.phone}
@@ -180,10 +175,17 @@ function Customers() {
               onChange={(e) => setForm({ ...form, email: e.target.value })}
             />
 
+            <input
+              type="password"
+              placeholder="Password"
+              value={form.password}
+              onChange={(e) => setForm({ ...form, password: e.target.value })}
+            />
+
             <div className="modal-actions">
               <button
                 className="save-btn"
-                onClick={editingCustomer ? updateCustomer : addCustomer}
+                onClick={editingUser ? updateUser : addUser}
               >
                 Save
               </button>
@@ -198,4 +200,4 @@ function Customers() {
   )
 }
 
-export default Customers
+export default Users

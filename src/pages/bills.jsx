@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react"
 import axios from "axios"
 import { Link } from "react-router-dom"
+import "./common.css"
 
 function Bills() {
   const [bills, setBills] = useState([])
@@ -103,7 +104,7 @@ function Bills() {
                 <td>
                   {b.status === "UNPAID" ? (
                     <button
-                      className="add-btn"
+                      className="pay-btn"
                       onClick={() => payBill(b)}
                     >
                       Pay

@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react"
 import axios from "axios"
+import { Link } from "react-router-dom"
+import "./common.css"
 
 function Reports() {
   const [summary, setSummary] = useState(null)
@@ -24,8 +26,10 @@ function Reports() {
   return (
     <div className="page">
       <div className="page-header">
-        <h2>Reports</h2>
+        <Link to="/" className="back-btn">← Back</Link>
       </div>
+
+      <h2>Reports</h2>
 
       <div className="stat-grid">
         <article className="stat-card">

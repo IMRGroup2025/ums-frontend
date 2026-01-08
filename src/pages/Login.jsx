@@ -1,5 +1,6 @@
 import { useState } from "react"
 import { useNavigate } from "react-router-dom"
+import "./Login.css"
 
 function Login() {
   const [username, setUsername] = useState("")
@@ -36,12 +37,7 @@ function Login() {
           onChange={(e) => setPassword(e.target.value)}
         />
 
-        <select value={role} onChange={(e) => setRole(e.target.value)}>
-          <option value="admin">Administrative Staff</option>
-          <option value="meter">Field Officer / Meter Reader</option>
-          <option value="cashier">Cashier / Billing Clerk</option>
-          <option value="manager">Manager</option>
-        </select>
+        
 
         <button onClick={handleLogin}>Login</button>
       </div>

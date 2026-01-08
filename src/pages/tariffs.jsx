@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react"
 import axios from "axios"
+import { Link } from "react-router-dom"
+import "./common.css"
 
 function Tariffs() {
   const [tariffs, setTariffs] = useState([])
@@ -62,11 +64,13 @@ function Tariffs() {
   return (
     <div className="page">
       <div className="page-header">
-        <h2>Tariff plans</h2>
+        <Link to="/" className="back-btn">← Back</Link>
         <button className="add-btn" onClick={openAddModal}>
-          + Add plan
+          ➕ Add plan
         </button>
       </div>
+
+      <h2>Tariff Plans</h2>
 
       <div className="card full-width">
         <table>

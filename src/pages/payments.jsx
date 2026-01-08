@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react"
 import axios from "axios"
 import { Link } from "react-router-dom"
+import "./common.css"
 
 export default function Payments() {
   const [payments, setPayments] = useState([])
@@ -16,11 +17,14 @@ export default function Payments() {
 
   return (
     <div className="page">
-      <Link to="/" className="back-btn">← Back</Link>
+      <div className="page-header">
+        <Link to="/" className="back-btn">← Back</Link>
+      </div>
 
       <h2>Payments</h2>
 
-      <table className="table">
+      <div className="card full-width">
+        <table>
         <thead>
           <tr>
             <th>ID</th>
@@ -45,6 +49,7 @@ export default function Payments() {
           ))}
         </tbody>
       </table>
+      </div>
     </div>
   )
 }

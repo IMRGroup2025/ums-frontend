@@ -17,6 +17,7 @@ function Sidebar() {
       <Link to="/utility/1">Electricity Overview</Link>
       <Link to="/utility/2">Water Overview</Link>
       <Link to="/utility/3">Gas Overview</Link>
+      <Link to="/users">User Management</Link>
 
     </div>
   )
