@@ -44,11 +44,17 @@ function Customers() {
   }
 
   // DELETE
-  const deleteCustomer = async (id) => {
-    if (!window.confirm("Delete this customer?")) return
-    await axios.delete(`http://localhost:5000/api/customers/${id}`)
-    fetchCustomers()
+ const deleteCustomer = async (id) => {
+  if (!window.confirm("Delete this customer?")) return;
+
+  try {
+    await axios.delete(`http://localhost:5000/api/customers/${id}`);
+    fetchCustomers(); // ✅ refresh list
+  } catch (err) {
+    console.error(err);
+    alert("Failed to delete customer");
   }
+};
 
   // OPEN ADD MODAL
   const openAddModal = () => {
@@ -89,7 +95,7 @@ function Customers() {
       <div className="page-header">
         <Link to="/" className="back-btn">← Back</Link>
         <button className="add-btn" onClick={openAddModal}>
-          ➕ Add Customer
+          + Add Customer
         </button>
       </div>
 

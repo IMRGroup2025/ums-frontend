@@ -17,6 +17,13 @@
   gap: 16px;
 }
 
+.header-actions {
+  margin-left: auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+}
+
 .page h2 {
   color: #212a35;
   font-size: 32px;
@@ -52,20 +59,21 @@
   align-items: center;
   gap: 8px;
   padding: 12px 24px;
-  
+  background: #22c55e;
   color: #ffffff;
   border: none;
-  border-radius: 12px;
+  border-radius: 14px;
   font-size: 15px;
-  font-weight: 600;
+  font-weight: 700;
   cursor: pointer;
   transition: all 0.3s ease;
-  box-shadow: 0 4px 15px rgba(245, 87, 108, 0.4);
+  box-shadow: 0 10px 25px rgba(244, 114, 182, 0.35);
 }
 
 .add-btn:hover {
   transform: translateY(-2px);
-  box-shadow: 0 8px 20px rgba(245, 87, 108, 0.6);
+  box-shadow: 0 12px 28px rgba(244, 114, 182, 0.5);
+  background: #16a34a;
 }
 
 .add-btn:active {
@@ -163,12 +171,12 @@ tbody tr td:first-child {
 }
 
 /* Action Buttons in Table */
-.edit-btn,
-.delete-btn,
+.btn-edit,
+.btn-delete,
 .pay-btn {
-  padding: 8px 16px;
+  padding: 10px 18px;
   border: none;
-  border-radius: 8px;
+  border-radius: 12px;
   font-size: 13px;
   font-weight: 600;
   cursor: pointer;
@@ -176,6 +184,31 @@ tbody tr td:first-child {
   margin-right: 8px;
 }
 
+.btn-edit {
+  background: #6366f1;
+  color: #ffffff;
+  box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
+}
+
+.btn-edit:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(99, 102, 241, 0.5);
+  background: #4f46e5;
+}
+
+.btn-delete {
+  background: #ef4444;
+  color: #ffffff;
+  box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3);
+}
+
+.btn-delete:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(239, 68, 68, 0.5);
+  background: #dc2626;
+}
+
+/* Keep old classes for backward compatibility */
 .edit-btn {
   background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
   color: #ffffff;
@@ -213,6 +246,116 @@ tbody tr td:first-child {
 .delete-btn:active,
 .pay-btn:active {
   transform: translateY(0);
+}
+
+/* Status select styling */
+.status-select {
+  padding: 10px 14px;
+  border-radius: 12px;
+  border: 1px solid #c7d2fe;
+  background: #eef2ff;
+  color: #1f2937;
+  font-weight: 600;
+  min-width: 150px;
+  box-shadow: 0 6px 18px rgba(99, 102, 241, 0.15);
+  transition: all 0.2s ease;
+}
+
+.status-select:focus,
+.status-select:hover {
+  border-color: #818cf8;
+  box-shadow: 0 8px 22px rgba(99, 102, 241, 0.22);
+  outline: none;
+}
+
+.status-select option {
+  color: #111827;
+}
+
+/* Mark as Paid Button */
+.mark-paid-btn {
+  padding: 10px 18px;
+  background: #22c55e;
+  color: #ffffff;
+  border: none;
+  border-radius: 12px;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 8px 18px rgba(34, 197, 94, 0.3);
+}
+
+.mark-paid-btn:hover {
+  background: #16a34a;
+  transform: translateY(-2px);
+  box-shadow: 0 12px 24px rgba(34, 197, 94, 0.45);
+}
+
+.mark-paid-btn:active {
+  transform: translateY(0);
+}
+
+/* Paid Badge */
+.paid-badge {
+  display: inline-block;
+  padding: 8px 14px;
+  background: #dcfce7;
+  color: #15803d;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* Print Button */
+.print-btn {
+  padding: 10px 18px;
+  background: linear-gradient(135deg, #60a5fa 0%, #2563eb 100%);
+  color: #ffffff;
+  border: none;
+  border-radius: 12px;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 8px 18px rgba(37, 99, 235, 0.28);
+}
+
+.print-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 24px rgba(37, 99, 235, 0.4);
+}
+
+.print-btn:active {
+  transform: translateY(0);
+}
+
+/* Payment action row */
+.pay-action {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.payment-select {
+  padding: 10px 14px;
+  border-radius: 10px;
+  border: 1px solid #dbeafe;
+  background: #f8fafc;
+  color: #1f2937;
+  font-weight: 600;
+  min-width: 150px;
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.15);
+  transition: all 0.2s ease;
+}
+
+.payment-select:focus,
+.payment-select:hover {
+  border-color: #60a5fa;
+  box-shadow: 0 8px 18px rgba(59, 130, 246, 0.22);
+  outline: none;
 }
 
 /* Status Badges */
@@ -386,38 +529,40 @@ tbody tr td:first-child {
   display: flex;
   gap: 12px;
   margin-top: 24px;
+  justify-content: flex-end;
 }
 
 .save-btn,
 .cancel-btn {
-  flex: 1;
-  padding: 14px 24px;
+  padding: 12px 24px;
   border: none;
-  border-radius: 12px;
+  border-radius: 9999px;
   font-size: 15px;
-  font-weight: 600;
+  font-weight: 700;
   cursor: pointer;
   transition: all 0.3s ease;
 }
 
 .save-btn {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: #22c55e;
   color: #ffffff;
-  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+  box-shadow: 0 10px 24px rgba(16, 185, 129, 0.35), 0 2px 6px rgba(16, 185, 129, 0.2);
 }
 
 .save-btn:hover {
   transform: translateY(-2px);
-  box-shadow: 0 8px 20px rgba(102, 126, 234, 0.6);
+  background: #16a34a;
+  box-shadow: 0 14px 28px rgba(16, 185, 129, 0.5), 0 4px 10px rgba(16, 185, 129, 0.25);
 }
 
 .cancel-btn {
-  background: #e5e7eb;
-  color: #374151;
+  background: #9ca3af;
+  color: #ffffff;
+  box-shadow: 0 6px 16px rgba(148, 163, 184, 0.25);
 }
 
 .cancel-btn:hover {
-  background: #d1d5db;
+  background: #6b7280;
   transform: translateY(-2px);
 }
 

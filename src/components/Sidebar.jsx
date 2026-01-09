@@ -1,27 +1,97 @@
-import { Link } from "react-router-dom"
+import { Link, useLocation } from "react-router-dom";
+import { getRole, logout } from "../utils/auth";
 
 function Sidebar() {
+  const location = useLocation();
+  const role = getRole();
+
   return (
-    <div className="sidebar">
-      <h2>UMS Admin</h2>
+    <aside className="sidebar">
+      <div className="sidebar__brand">
+        <div className="sidebar__logo">UMS</div>
+        <div className="sidebar__title">Utility Admin</div>
+      </div>
 
-      <Link to="/dashboard">Dashboard</Link>
-      <Link to="/customers">Customers</Link>
-      <Link to="/meters">Meters</Link>
-      <Link to="/meter-readings">Meter Readings</Link>
-      <Link to="/tariffs">Tariff Plans</Link>
-      <Link to="/complaints">Complaints</Link>
-      <Link to="/bills">Bills</Link>
-      <Link to="/payments">Payments</Link>
-      <Link to="/reports">Reports</Link>
-      <Link to="/utility/1">Electricity Overview</Link>
-      <Link to="/utility/2">Water Overview</Link>
-      <Link to="/utility/3">Gas Overview</Link>
-      <Link to="/users">User Management</Link>
+      <nav className="sidebar__nav">
+        <Link
+          to="/dashboard"
+          className={`sidebar__link ${location.pathname === "/dashboard" ? "active" : ""}`}
+        >
+          <span className="sidebar__icon"></span>
+          <span className="sidebar__label">Dashboard</span>
+        </Link>
 
-    </div>
-  )
+        <Link
+          to="/customers"
+          className={`sidebar__link ${location.pathname === "/customers" ? "active" : ""}`}
+        >
+          <span className="sidebar__icon"></span>
+          <span className="sidebar__label">Customers</span>
+        </Link>
+
+        <Link
+          to="/meters"
+          className={`sidebar__link ${location.pathname === "/meters" ? "active" : ""}`}
+        >
+          <span className="sidebar__icon"></span>
+          <span className="sidebar__label">Meters</span>
+        </Link>
+
+        <Link
+          to="/tariffs"
+          className={`sidebar__link ${location.pathname === "/tariffs" ? "active" : ""}`}
+        >
+          <span className="sidebar__icon"></span>
+          <span className="sidebar__label">Tariff Plans</span>
+        </Link>
+
+        <Link
+          to="/complaints"
+          className={`sidebar__link ${location.pathname === "/complaints" ? "active" : ""}`}
+        >
+          <span className="sidebar__icon"></span>
+          <span className="sidebar__label">Complaints</span>
+        </Link>
+
+        <Link
+          to="/meter-readings"
+          className={`sidebar__link ${location.pathname === "/meter-readings" ? "active" : ""}`}
+        >
+          <span className="sidebar__icon"></span>
+          <span className="sidebar__label">Meter Readings</span>
+        </Link>
+
+        <Link
+          to="/bills"
+          className={`sidebar__link ${location.pathname === "/bills" ? "active" : ""}`}
+        >
+          <span className="sidebar__icon"></span>
+          <span className="sidebar__label">Bills</span>
+        </Link>
+
+        <Link
+          to="/reports"
+          className={`sidebar__link ${location.pathname === "/reports" ? "active" : ""}`}
+        >
+          <span className="sidebar__icon"></span>
+          <span className="sidebar__label">Reports</span>
+        </Link>
+
+        <Link
+          to="/users"
+          className={`sidebar__link sidebar__link--admin ${location.pathname === "/users" ? "active" : ""}`}
+        >
+          <span className="sidebar__icon"></span>
+          <span className="sidebar__label">User Management</span>
+        </Link>
+
+        <button onClick={logout} className="sidebar__logout">
+          <span className="sidebar__icon"></span>
+          <span className="sidebar__label">Logout</span>
+        </button>
+      </nav>
+    </aside>
+  );
 }
 
-export default Sidebar
-
+export default Sidebar;

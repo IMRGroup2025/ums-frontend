@@ -22,19 +22,52 @@ function MeterReadings() {
      Fetch data
   ========================= */
   const fetchReadings = async () => {
-    const res = await axios.get("http://localhost:5000/api/meter-readings")
-    setReadings(res.data)
+    try {
+      const res = await axios.get("http://localhost:5000/api/meter-readings")
+      setReadings(res.data)
+    } catch (err) {
+      console.error("Fetch readings error:", err)
+      // Set empty array if endpoint doesn't exist
+      setReadings([])
+    }
   }
 
   const fetchMeters = async () => {
-    const res = await axios.get("http://localhost:5000/api/meters")
-    setMeters(res.data)
+    try {
+      const res = await axios.get("http://localhost:5000/api/meters")
+      setMeters(res.data)
+    } catch (err) {
+      console.error("Fetch meters error:", err)
+      setMeters([])
+    }
   }
+
+  const markAsPaid = async (bill) => {
+  try {
+    await axios.post("http://localhost:5000/api/payments", {
+      bill_id: bill.bill_id,
+      amount: bill.amount,
+      payment_method: "Cash"
+    });
+
+    fetchBills(); // refresh bills
+  } catch (err) {
+    console.error("PAYMENT ERROR:", err.response?.data || err.message);
+    alert(err.response?.data?.message || "Failed to record payment");
+  }
+};
 
   useEffect(() => {
     fetchReadings()
     fetchMeters()
   }, [])
+
+  useEffect(() => {
+  axios
+    .get("http://localhost:5000/api/meter-readings")
+    .then(res => setReadings(res.data))
+    .catch(err => console.error(err));
+}, []);
 
   /* =========================
      Modal handlers
@@ -86,7 +119,7 @@ function MeterReadings() {
       <div className="page-header">
         <Link to="/" className="back-btn">← Back</Link>
         <button className="add-btn" onClick={openModal}>
-          ➕ Log reading
+          + Log reading
         </button>
       </div>
 

@@ -89,7 +89,7 @@ function Users() {
       <div className="page-header">
         <Link to="/" className="back-btn">← Back</Link>
         <button className="add-btn" onClick={openAddModal}>
-          ➕ Add User
+          + Add User
         </button>
       </div>
 
