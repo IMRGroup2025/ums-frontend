@@ -10,7 +10,7 @@ import Tariffs from "./pages/Tariffs.jsx";
 import Complaints from "./pages/Complaints.jsx";
 import Bills from "./pages/Bills.jsx";
 import Reports from "./pages/Reports.jsx";
-import UtilityDashboard from "./pages/UtilityDasboard.jsx";
+import UtilityDashboard from "./pages/UtilityDashboard.jsx";
 import Users from "./pages/Users.jsx";
 import AppLayout from "./components/AppLayout.jsx";
 import Unauthorized from "./pages/Unauthorized.jsx";
