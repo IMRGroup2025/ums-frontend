@@ -119,18 +119,22 @@ function Users() {
                 <td>{u.email}</td>
                 <td>{u.password}</td>
                 <td>
-                  <button
-                    className="edit-btn"
-                    onClick={() => openEditModal(u)}
-                  >
-                    Edit
-                  </button>
-                  <button
-                    className="delete-btn"
-                    onClick={() => deleteUser(u.user_id)}
-                  >
-                    Delete
-                  </button>
+                  <div style={{ display: "flex", gap: "8px" }}>
+                    <button
+                      className="btn-edit"
+                      onClick={() => openEditModal(u)}
+                      title="Edit user"
+                    >
+                      Edit
+                    </button>
+                    <button
+                      className="btn-delete"
+                      onClick={() => deleteUser(u.user_id)}
+                      title="Delete user"
+                    >
+                      Delete
+                    </button>
+                  </div>
                 </td>
               </tr>
             ))}

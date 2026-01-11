@@ -1,5 +1,6 @@
 import { useNavigate } from "react-router-dom"
-import { useState } from "react"
+import { useState, useEffect } from "react"
+import api from "../utils/api"
 import "./dashboard.css"
 
 const utilities = [
@@ -94,6 +95,71 @@ const alerts = [
 function Dashboard() {
   const navigate = useNavigate()
   const [activeTab, setActiveTab] = useState("overview")
+  const [utilities, setUtilities] = useState([
+    {
+      label: "Electricity",
+      value: "1,234",
+      unit: "kWh",
+      monthlyUsage: 24,
+      amount: "LKR 156,320",
+      change: -12,
+      color: "#f97316",
+      totalCustomers: 0,
+    },
+    {
+      label: "Water",
+      value: "456",
+      unit: "m³",
+      monthlyUsage: 18,
+      amount: "LKR 14,560",
+      change: 5,
+      color: "#0ea5e9",
+      totalCustomers: 0,
+    },
+    {
+      label: "Gas",
+      value: "789",
+      unit: "m³",
+      monthlyUsage: 31,
+      amount: "LKR 98,500",
+      change: -8,
+      color: "#f43f5e",
+      totalCustomers: 0,
+    },
+  ])
+
+  useEffect(() => {
+    const fetchUtilityData = async () => {
+      try {
+        const res = await api.get("/utilities/overview")
+        // res.data should be an array like:
+        // [
+        //   { utility_name: "Electricity", total_customers: 45, total_meters: 52, ... },
+        //   { utility_name: "Water", total_customers: 32, ... },
+        //   { utility_name: "Gas", total_customers: 28, ... }
+        // ]
+        
+        setUtilities(prevUtilities => 
+          prevUtilities.map(util => {
+            const apiData = res.data.find(
+              item => item.utility_name?.toLowerCase() === util.label.toLowerCase()
+            )
+            if (apiData) {
+              return {
+                ...util,
+                totalCustomers: apiData.total_customers || 0
+              }
+            }
+            return util
+          })
+        )
+      } catch (err) {
+        console.error("Failed to fetch utility overview:", err)
+      }
+    }
+
+    fetchUtilityData()
+  }, [])
 
   const maxValue = Math.max(
     ...monthlyComparison.flatMap((item) => [item.current, item.previous])
@@ -134,11 +200,16 @@ function Dashboard() {
               <div className="dash-card__body">
                 <div className="dash-card__header">
                   <div>
-                    <p className="dash-label">{item.label}</p>
+                    <p className="dash-label">{item.label} Overview</p>
                     <div className="dash-value-row">
                       <span className="dash-value">{item.value}</span>
                       <span className="dash-unit">{item.unit}</span>
                     </div>
+                    {item.totalCustomers > 0 && (
+                      <p className="dash-label" style={{ marginTop: "8px", fontSize: "13px" }}>
+                        {item.totalCustomers} customers
+                      </p>
+                    )}
                   </div>
                   <div className="dash-badge" style={{ color: item.color, borderColor: item.color }}>
                     {item.label.slice(0, 1)}

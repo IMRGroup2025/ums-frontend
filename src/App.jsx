@@ -14,6 +14,7 @@ import UtilityDashboard from "./pages/utilityDasboard.jsx";
 import Users from "./pages/users.jsx";
 import AppLayout from "./components/AppLayout.jsx";
 import Unauthorized from "./pages/Unauthorized.jsx";
+import ProtectedRoute from "./components/ProtectedRoute.jsx";
 
 function App() {
   return (
@@ -33,7 +34,15 @@ function App() {
         <Route path="bills" element={<Bills />} />
         <Route path="reports" element={<Reports />} />
         <Route path="utility/:utilityId" element={<UtilityDashboard />} />
-        <Route path="users" element={<Users />} />
+        <Route
+  path="/users"
+  element={
+    <ProtectedRoute allowedRoles={["SUPER ADMIN"]}>
+      <Users />
+    </ProtectedRoute>
+  }
+/>
+
         <Route path="unauthorized" element={<Unauthorized />} />
       </Route>
     </Routes>

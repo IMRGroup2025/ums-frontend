@@ -4,12 +4,13 @@ import { Link } from "react-router-dom";
 import "./common.css";
 
 function Meters() {
-  const [meters, setMeters] = useState([]);
+  const [groupedMeters, setGroupedMeters] = useState({});
   const [customers, setCustomers] = useState([]);
   const [utilities, setUtilities] = useState([]);
 
   const [showModal, setShowModal] = useState(false);
   const [error, setError] = useState("");
+  const [message, setMessage] = useState("");
 
   const [form, setForm] = useState({
     meter_number: "",
@@ -23,8 +24,8 @@ function Meters() {
      FETCH DATA
   ========================= */
   const fetchMeters = async () => {
-    const res = await axios.get("http://localhost:5000/api/meters");
-    setMeters(res.data);
+    const res = await axios.get("http://localhost:5000/api/meters/grouped");
+    setGroupedMeters(res.data);
   };
 
   const fetchCustomers = async () => {
@@ -93,6 +94,8 @@ function Meters() {
         status: form.status
       });
       console.log("Meter created:", response.data);
+      setMessage("Meter registered successfully");
+      setTimeout(() => setMessage(""), 3000);
       closeModal();
       fetchMeters();
     } catch (err) {
@@ -119,41 +122,71 @@ function Meters() {
         </button>
       </div>
 
+      {message && (
+        <div style={{
+          marginBottom: "16px",
+          padding: "12px 16px",
+          borderRadius: "12px",
+          background: "linear-gradient(135deg, rgba(50, 172, 109, 0.12), rgba(52, 211, 153, 0.12))",
+          color: "#065f46",
+          border: "1px solid rgba(52, 211, 153, 0.4)",
+          fontWeight: 600
+        }}>
+          {message}
+        </div>
+      )}
+
       <h2>Meters</h2>
 
-      <div className="card full-width">
-        <table>
-          <thead>
-            <tr>
-              <th>ID</th>
-              <th>Meter Number</th>
-              <th>Customer</th>
-              <th>Utility</th>
-              <th>Status</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            {meters.map((m) => (
-              <tr key={m.meter_id}>
-                <td>{m.meter_id}</td>
-                <td>{m.meter_number}</td>
-                <td>{m.customer_name} (ID: {m.customer_id})</td>
-                <td>{m.utility_name}</td>
-                <td>{m.status}</td>
-                <td>
-                  <button
-                    className="btn-delete"
-                    onClick={() => deleteMeter(m.meter_id)}
-                  >
-                    Delete
-                  </button>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
+      {Object.entries(groupedMeters).map(([utilityName, meters]) => {
+        const sortedMeters = [...(meters || [])].sort(
+          (a, b) => Number(a?.meter_id ?? 0) - Number(b?.meter_id ?? 0)
+        );
+
+        return (
+          <div key={utilityName} className="card full-width" style={{ marginBottom: '24px' }}>
+            <h3 style={{ 
+              margin: '0 0 20px 0', 
+              color: '#6366f1', 
+              fontSize: '20px',
+              fontWeight: '700',
+              textTransform: 'uppercase',
+              letterSpacing: '0.5px'
+            }}>
+              {utilityName} Meters
+            </h3>
+            <table>
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Meter Number</th>
+                  <th>Customer</th>
+                  <th>Status</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                {sortedMeters.map((m) => (
+                  <tr key={m.meter_id}>
+                    <td>{m.meter_id}</td>
+                    <td>{m.meter_number}</td>
+                    <td>{m.customer_name} (ID: {m.customer_id})</td>
+                    <td>{m.status}</td>
+                    <td>
+                      <button
+                        className="btn-delete"
+                        onClick={() => deleteMeter(m.meter_id)}
+                      >
+                        Delete
+                      </button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        );
+      })}
 
       {/* =========================
           MODAL
