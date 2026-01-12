@@ -1,4 +1,4 @@
-/* ================= RESET ================= */
+
 * {
   margin: 0;
   padding: 0;
@@ -10,7 +10,7 @@ body {
   background-color: #f1f5f9;
 }
 
-/* ================= LAYOUT ================= */
+
 .app-container {
   display: flex;
   min-height: 100vh;
@@ -278,7 +278,6 @@ body {
   margin-bottom: 20px;
 }
 
-/* ================= TITLES ================= */
 .page-title,
 h2 {
   font-size: 26px;
@@ -287,7 +286,7 @@ h2 {
   color: #0f172a;
 }
 
-/* ================= BACK BUTTON ================= */
+
 .back-btn {
   display: inline-flex;
   align-items: center;
@@ -313,7 +312,7 @@ h2 {
   transform: translateX(-2px) scale(0.98);
 }
 
-/* ================= BUTTONS ================= */
+
 button {
   border: none;
   cursor: pointer;
@@ -353,7 +352,7 @@ button {
   background: #dc2626;
 }
 
-/* ================= CARDS ================= */
+
 .card {
   background: white;
   padding: 20px;
@@ -366,7 +365,7 @@ button {
   width: 100%;
 }
 
-/* ================= TABLE ================= */
+
 table {
   width: 100%;
   border-collapse: collapse;
@@ -392,7 +391,7 @@ tbody tr:hover {
   background-color: #f1f5f9;
 }
 
-/* ================= STATUS ================= */
+
 .status.paid {
   color: green;
   font-weight: 600;
@@ -403,7 +402,7 @@ tbody tr:hover {
   font-weight: 600;
 }
 
-/* ================= MODAL ================= */
+
 .modal-overlay {
   position: fixed;
   top: 0;

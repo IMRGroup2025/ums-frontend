@@ -27,7 +27,7 @@ function Bills() {
     try {
       setPayingId(bill.bill_id);
 
-      // Optimistic UI update
+      
       setBills((curr) =>
         curr.map((b) =>
           b.bill_id === bill.bill_id ? { ...b, status: "PAID" } : b
@@ -39,7 +39,7 @@ function Bills() {
     } catch (err) {
       console.error("PAYMENT ERROR:", err.response?.data || err.message);
       alert(err.response?.data?.message || "Failed to record payment");
-      // Revert optimistic change
+      
       fetchBills();
     } finally {
       setPayingId(null);
@@ -133,7 +133,7 @@ function Bills() {
         </head>
         <body>
           <div class="bill-container">
-            <h2>⚡ Utility Bill</h2>
+            <h2>Utility Bill</h2>
             
             <div class="bill-details">
               <div class="detail-row">

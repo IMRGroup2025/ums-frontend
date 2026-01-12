@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import axios from "axios"
+import api from "../utils/api"
 import { Link } from "react-router-dom"
 import "./common.css"
 
@@ -18,8 +18,13 @@ function Customers() {
 
   // FETCH
   const fetchCustomers = async () => {
-    const res = await axios.get("http://localhost:5000/api/customers")
-    setCustomers(res.data)
+    try {
+      const res = await api.get("/customers")
+      setCustomers(res.data)
+    } catch (err) {
+      console.error(err)
+      alert("Failed to fetch customers")
+    }
   }
 
   useEffect(() => {
@@ -28,19 +33,26 @@ function Customers() {
 
   // ADD
   const addCustomer = async () => {
-    await axios.post("http://localhost:5000/api/customers", form)
-    closeModal()
-    fetchCustomers()
+    try {
+      await api.post("/customers", form)
+      closeModal()
+      fetchCustomers()
+    } catch (err) {
+      console.error(err)
+      alert(err.response?.data?.message || "Failed to add customer")
+    }
   }
 
   // UPDATE
   const updateCustomer = async () => {
-    await axios.put(
-      `http://localhost:5000/api/customers/${editingCustomer.customer_id}`,
-      form
-    )
-    closeModal()
-    fetchCustomers()
+    try {
+      await api.put(`/customers/${editingCustomer.customer_id}`, form)
+      closeModal()
+      fetchCustomers()
+    } catch (err) {
+      console.error(err)
+      alert(err.response?.data?.message || "Failed to update customer")
+    }
   }
 
   // DELETE
@@ -48,7 +60,7 @@ function Customers() {
   if (!window.confirm("Delete this customer?")) return;
 
   try {
-    await axios.delete(`http://localhost:5000/api/customers/${id}`);
+    await api.delete(`/customers/${id}`);
     fetchCustomers(); // ✅ refresh list
   } catch (err) {
     console.error(err);
@@ -205,3 +217,4 @@ function Customers() {
 }
 
 export default Customers
+

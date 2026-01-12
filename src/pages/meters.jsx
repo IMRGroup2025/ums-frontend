@@ -20,9 +20,8 @@ function Meters() {
     status: "Active",
   });
 
-  /* =========================
-     FETCH DATA
-  ========================= */
+
+ 
   const fetchMeters = async () => {
     const res = await axios.get("http://localhost:5000/api/meters/grouped");
     setGroupedMeters(res.data);
@@ -44,7 +43,7 @@ function Meters() {
     fetchUtilities();
   }, []);
 
-  // Build a deduplicated utility list with only ELECTRICITY, WATER, GAS
+ 
   const allowedUtilityNames = ["ELECTRICITY", "WATER", "GAS"];
   const seenUtilities = new Set();
   const utilityOptions = [];
@@ -56,9 +55,8 @@ function Meters() {
     }
   });
 
-  /* =========================
-     MODAL HANDLERS
-  ========================= */
+  
+ 
   const openModal = () => {
     setForm({
       meter_number: "",
@@ -75,9 +73,7 @@ function Meters() {
     setShowModal(false);
   };
 
-  /* =========================
-     SAVE METER
-  ========================= */
+  
   const saveMeter = async () => {
     if (!form.customer_id || !form.utility_id) {
       setError("Customer and Utility are required");
@@ -104,9 +100,7 @@ function Meters() {
     }
   };
 
-  /* =========================
-     DELETE METER
-  ========================= */
+
   const deleteMeter = async (id) => {
     if (!window.confirm("Delete this meter?")) return;
     await axios.delete(`http://localhost:5000/api/meters/${id}`);
@@ -188,9 +182,7 @@ function Meters() {
         );
       })}
 
-      {/* =========================
-          MODAL
-      ========================= */}
+     
       {showModal && (
         <div className="modal-overlay">
           <div className="modal">

@@ -6,7 +6,7 @@ function UtilityDashboard() {
   const { utilityId } = useParams()
   const [data, setData] = useState(null)
 
-  // Map utility IDs to names
+  
   const utilityMap = {
     1: "Electricity",
     2: "Water",

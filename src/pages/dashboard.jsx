@@ -132,13 +132,7 @@ function Dashboard() {
     const fetchUtilityData = async () => {
       try {
         const res = await api.get("/utilities/overview")
-        // res.data should be an array like:
-        // [
-        //   { utility_name: "Electricity", total_customers: 45, total_meters: 52, ... },
-        //   { utility_name: "Water", total_customers: 32, ... },
-        //   { utility_name: "Gas", total_customers: 28, ... }
-        // ]
-        
+      
         setUtilities(prevUtilities => 
           prevUtilities.map(util => {
             const apiData = res.data.find(

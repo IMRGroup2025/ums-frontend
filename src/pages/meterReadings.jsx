@@ -20,9 +20,7 @@ function MeterReadings() {
 
   const [form, setForm] = useState(emptyForm);
 
-  /* =========================
-     FETCH DATA
-  ========================= */
+ 
   const fetchMeters = async () => {
     const res = await api.get("/meters");
     setMeters(res.data);
@@ -38,9 +36,7 @@ function MeterReadings() {
     fetchReadings();
   }, []);
 
-  /* =========================
-     SAVE READING
-  ========================= */
+
   const saveReading = async () => {
     if (!form.meter_id || !form.current_reading) {
       setError("Please fill all fields");
@@ -55,7 +51,7 @@ function MeterReadings() {
         reading_date: form.reading_date
       });
 
-      // Extract bill data from response (status 201)
+      
       const billData = response.data?.bill;
       
       if (billData) {
@@ -82,9 +78,7 @@ function MeterReadings() {
     }
   };
 
-  /* =========================
-     DELETE READING
-  ========================= */
+
   const deleteReading = async (id) => {
     if (!confirm("Are you sure you want to delete this reading?")) {
       return;
@@ -167,7 +161,7 @@ function MeterReadings() {
       <h2>Meter Readings</h2>
 
       {(() => {
-        const priorityOrder = ["ELECTRICITY", "WATER", "GAS"]; // ensures consistent ordering
+        const priorityOrder = ["ELECTRICITY", "WATER", "GAS"]; 
         const orderedPriority = priorityOrder.map((name) => [name, groupedReadings?.[name] || []]);
 
         const remaining = Object.entries(groupedReadings || {})
